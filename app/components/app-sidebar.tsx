@@ -19,7 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import logo from "@/public/Logo.png";
 // This is sample data.
 const data = {
   items: [
@@ -48,7 +48,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader className="flex flex-row items-center">
-        <Image src="/Logo.png" alt="ApplyMate logo" width={48} height={48} priority className="object-contain size-10 md:size-fit " />
+        <Image src={logo} alt="ApplyMate logo" width={48} height={48} priority className="object-contain size-10 md:size-fit " />
         <h1>ApplyMate</h1>
       </SidebarHeader>
       <SidebarContent>

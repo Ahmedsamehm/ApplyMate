@@ -12,31 +12,36 @@ export type JobApplication = {
   date: string;
   position: string;
   companyName: string;
+  data: { status: "Accepted" | "Rejected" | "Pending"; date: string; position: string; companyName: string }[];
 };
-const ApplicationsList = ({ status, position, companyName, title, color, date }: JobApplication) => {
-  const statusColor = getStatusColor(status);
+const ApplicationsList = ({ title, color, data }: JobApplication) => {
   return (
-    <Card className="w-full">
+    <Card className="w-full hover:border-blue-400/80  transition outline-2 dark:outline-0 ">
       <CardHeader>
-        <CardTitle className={`${color}`}>{title}</CardTitle>
+        <CardTitle className={`${color} font-bold text-xl flex gap-2 `}>{title}</CardTitle>
         {/* <CardDescription>Card Description</CardDescription> */}
         <CardAction className="px-3">Status</CardAction>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col flex-wrap gap-3 max-h-[20vh] overflow-y-auto">
+        <div className="flex flex-col flex-wrap gap-3 min-h-[30vh] max-h-[40vh] overflow-y-auto">
           <ul>
-            <li className="flex justify-between items-center">
-              <div className="flex flex-col">
-                <span>{companyName}</span>
-                <div className="space-y-1 flex-col">
-                  <span className="text-sm text-muted-foreground block">{position}</span>
-                  <span className="text-sm text-muted-foreground">{date}</span>
-                </div>
-              </div>
-              <Badge className={`${statusColor.text} ${statusColor.bg} ${statusColor.badge} px-2 py-1 rounded-md`} variant="outline">
-                {status}
-              </Badge>
-            </li>
+            {data.map((item, index) => {
+              const statusColor = getStatusColor(item.status);
+              return (
+                <li key={index} className="flex justify-between items-center">
+                  <div className="flex flex-col">
+                    <span>{item.companyName}</span>
+                    <div className="space-y-1 flex-col">
+                      <span className="text-sm text-muted-foreground block">{item.position}</span>
+                      <span className="text-sm text-muted-foreground">{item.date}</span>
+                    </div>
+                  </div>
+                  <Badge className={`${statusColor.text} ${statusColor.bg} ${statusColor.badge} px-2 py-1 rounded-md`} variant="outline">
+                    {item.status}
+                  </Badge>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </CardContent>

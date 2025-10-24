@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "./ui/button";
-
+import logo from "@/public/Logo.png";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,7 +24,7 @@ const NavBar = () => {
         {/* Logo */}
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-1">
-            <Image src="/Logo.png" alt="ApplyMate logo" width={48} height={48} priority className="object-contain size-10 md:size-fit " />
+            <Image src={logo} alt="ApplyMate logo" width={48} height={48} priority className="object-contain size-10 md:size-fit " />
             <span className="text-md sm:text-xl font-bold text-foreground">ApplyMate</span>
           </Link>
         </div>

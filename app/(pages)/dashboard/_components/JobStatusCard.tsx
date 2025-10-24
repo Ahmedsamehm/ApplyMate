@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/app/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/app/components/ui/card";
 import React from "react";
 
 export type JobStatusCardTypes = {
@@ -10,9 +10,9 @@ export type JobStatusCardTypes = {
   content: string;
   footer: string;
 };
-const JobStatusCard = ({ title, description, action, content, footer, color, icon }: JobStatusCardTypes) => {
+const JobStatusCard = ({ title, content, footer, color, icon }: JobStatusCardTypes) => {
   return (
-    <Card className=" w-full  ">
+    <Card className=" w-full hover:border-blue-400/80  transition outline-2 dark:outline-0 ">
       <CardHeader>
         <CardTitle className={`${color} font-bold text-xl flex gap-2 `}>
           {icon} {title}

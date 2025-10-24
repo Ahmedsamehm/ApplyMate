@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import React from "react";
 import JobStatusCard, { JobStatusCardTypes } from "./_components/JobStatusCard";
 import { Hourglass, UserRoundCheck, UserSearch, UserX } from "lucide-react";
 import ApplicationsList, { JobApplication } from "./_components/ApplicationsList";
@@ -48,35 +47,32 @@ const jobStatusData: JobStatusCardTypes[] = [
     footer: "Last updated 5 days ago",
   },
 ];
+const jobApplicationsData = {
+  Accepted: [
+    { status: "Accepted", date: "2 Oct 2023", position: "UI/UX Designer", companyName: "Pixel Labs" },
+    { status: "Accepted", date: "10 Nov 2023", position: "Frontend Developer", companyName: "TechWave" },
+    { status: "Accepted", date: "21 Dec 2023", position: "Product Designer", companyName: "DesignPro" },
+    { status: "Accepted", date: "21 Dec 2023", position: "Product Designer", companyName: "DesignPro" },
+  ],
+  Pending: [
+    { status: "Pending", date: "5 Jan 2024", position: "React Developer", companyName: "CodeCrafters" },
+    { status: "Pending", date: "18 Feb 2024", position: "UI Designer", companyName: "Creative Minds" },
+    { status: "Pending", date: "7 Mar 2024", position: "Frontend Engineer", companyName: "NextVision" },
+  ],
+  Rejected: [
+    { status: "Rejected", date: "10 Apr 2024", position: "Web Developer", companyName: "DigitalHub" },
+    { status: "Rejected", date: "25 May 2024", position: "UX Researcher", companyName: "Insight Labs" },
+    { status: "Rejected", date: "3 Jun 2024", position: "Junior Developer", companyName: "BrightCode" },
+  ],
+};
+
+// Combined structure for display
 const jobApplications: JobApplication[] = [
-  {
-    title: "Accepted Applications",
-    color: "text-green-600",
-
-    status: "Accepted",
-    date: "2 Oct 2023",
-    position: "UI/UX Designer",
-    companyName: "Pixel Labs",
-  },
-  {
-    title: "Pending Applications",
-    color: "text-yellow-600",
-    date: "2 Oct 2023",
-    status: "Pending",
-
-    position: "Frontend Developer",
-    companyName: "TechFlow",
-  },
-  {
-    title: "Rejected Applications",
-    color: "text-red-600",
-    date: "2 Oct 2023",
-    status: "Rejected",
-
-    position: "Digital Marketer",
-    companyName: "Brandify",
-  },
+  { title: "Accepted", color: "text-green-600", data: jobApplicationsData.Accepted } as JobApplication,
+  { title: "Pending", color: "text-yellow-600", data: jobApplicationsData.Pending } as JobApplication,
+  { title: "Rejected", color: "text-red-600", data: jobApplicationsData.Rejected } as JobApplication,
 ];
+
 const DashBoard = () => {
   return (
     <div className="flex flex-col flex-1 p-4 gap-8">
