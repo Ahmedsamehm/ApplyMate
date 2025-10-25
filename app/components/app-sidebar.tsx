@@ -20,6 +20,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "@/public/Logo.png";
+import { getUser } from "../utils/userStorage";
 // This is sample data.
 const data = {
   items: [
@@ -27,18 +28,18 @@ const data = {
       title: "Dashboard",
       url: "/dashboard",
     },
-    {
-      title: "Jobs",
-      url: "/dashboard/jobs",
-    },
+    // {
+    //   title: "Jobs",
+    //   url: "/dashboard/jobs",
+    // },
     {
       title: "Add Job",
       url: "/dashboard/addjob",
     },
-    {
-      title: "Settings",
-      url: "/settings",
-    },
+    // {
+    //   title: "Settings",
+    //   url: "/settings",
+    // },
   ],
 };
 
@@ -75,7 +76,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <h1>UserName</h1>
+          <h1>{getUser()}</h1>
         </div>
         <Link href="/" className="text-foreground hover:underline">
           <Button size="sm" variant="outline">

@@ -4,14 +4,16 @@ import { Badge } from "@/app/components/ui/badge";
 import { useJobApplicationsContext } from "@/app/context/JobApplicationsProvider ";
 import { JobApplication, JobApplicationItem } from "@/app/types";
 import { getStatusColor } from "@/app/utils/getStatusColor";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/app/components/ui/sheet";
+
 import { Card, CardHeader, CardTitle, CardContent, CardAction } from "@/app/components/ui/card";
 import { useState } from "react";
-import { Button } from "@/app/components/ui/button";
+
+import SelectedJob from "./SelectedJob";
 const ApplicationsList = () => {
-  const { jobApplications } = useJobApplicationsContext();
+  const { isSheetOpen, setIsSheetOpen, jobApplications } = useJobApplicationsContext();
+
   const [selectedJob, setSelectedJob] = useState<JobApplicationItem | null>(null);
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
   const applications: JobApplication[] = [
     { title: "applied", color: "text-blue-600", data: jobApplications.applied },
     { title: "pending", color: "text-yellow-600", data: jobApplications.pending },
@@ -60,31 +62,9 @@ const ApplicationsList = () => {
         ))}
       </div>
 
-      {selectedJob && SelectedJob({ selectedJob, isSheetOpen, setIsSheetOpen })}
+      {selectedJob && <SelectedJob selectedJob={selectedJob} isSheetOpen={isSheetOpen} setIsSheetOpen={setIsSheetOpen} />}
     </>
   );
 };
-const SelectedJob = ({ selectedJob, isSheetOpen, setIsSheetOpen }: { selectedJob: JobApplicationItem; isSheetOpen: boolean; setIsSheetOpen: (isOpen: boolean) => void }) => {
-  return (
-    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>
-            {selectedJob.companyName || "N/A"} - {selectedJob.position || "N/A"}
-          </SheetTitle>
-          <SheetDescription>
-            Status: {selectedJob.status || "N/A"} <br />
-            Applied on: {selectedJob.date || "N/A"} <br />
-            Notes: {selectedJob.notes || "N/A"}
-          </SheetDescription>
-        </SheetHeader>
-        <div className="flex justify-end mt-4">
-          <SheetClose asChild>
-            <Button variant="outline">Close</Button>
-          </SheetClose>
-        </div>
-      </SheetContent>
-    </Sheet>
-  );
-};
+
 export default ApplicationsList;

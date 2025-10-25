@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/app/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
 import { useJobApplicationsContext } from "@/app/context/JobApplicationsProvider ";
 import { Hourglass, UserRoundCheck, UserSearch, UserX } from "lucide-react";
 import React from "react";
@@ -10,10 +10,10 @@ export type JobStatusCardTypes = {
   color: string;
   description: string;
   count: number;
-  footer: string;
 };
 const JobStatusCard = () => {
   const { jobApplications } = useJobApplicationsContext();
+
   const applied = jobApplications.applied.length;
   const pending = jobApplications.pending.length;
   const accepted = jobApplications.accepted.length;
@@ -27,7 +27,6 @@ const JobStatusCard = () => {
       description: "your number of job applications",
 
       count: applied,
-      footer: "Last updated 2 days ago",
     },
     {
       title: "Accepted",
@@ -36,7 +35,6 @@ const JobStatusCard = () => {
       description: "Your application has been approved",
 
       count: accepted,
-      footer: "Last updated 2 days ago",
     },
 
     {
@@ -46,7 +44,6 @@ const JobStatusCard = () => {
       description: "Waiting for recruiter response",
 
       count: pending,
-      footer: "Last updated 1 day ago",
     },
     {
       title: "Rejected",
@@ -55,7 +52,6 @@ const JobStatusCard = () => {
       description: "Your application was not successful",
 
       count: rejected,
-      footer: "Last updated 5 days ago",
     },
   ];
   return (
@@ -70,9 +66,6 @@ const JobStatusCard = () => {
           <CardContent>
             <p>Applications: {card.count}</p>
           </CardContent>
-          <CardFooter>
-            <p>{card.footer}</p>
-          </CardFooter>
         </Card>
       ))}
     </div>
