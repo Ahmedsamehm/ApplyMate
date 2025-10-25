@@ -5,6 +5,8 @@ import Pricing from "./components/Pricing";
 import Footer from "./components/Footer";
 
 const Home = () => {
+
+
   return (
     <>
       <Hero />

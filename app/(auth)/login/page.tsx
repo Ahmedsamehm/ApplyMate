@@ -6,9 +6,6 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Login",
   description: "Login to your account",
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 export default function page() {
   return (

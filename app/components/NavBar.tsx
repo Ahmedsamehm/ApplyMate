@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "./ui/button";
 import logo from "@/public/Logo.png";
+
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
