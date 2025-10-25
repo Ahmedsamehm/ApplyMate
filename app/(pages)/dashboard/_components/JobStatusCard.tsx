@@ -28,14 +28,6 @@ const JobStatusCard = () => {
 
       count: applied,
     },
-    {
-      title: "Accepted",
-      icon: <UserRoundCheck />,
-      color: "text-green-600 ",
-      description: "Your application has been approved",
-
-      count: accepted,
-    },
 
     {
       title: "Pending",
@@ -44,6 +36,14 @@ const JobStatusCard = () => {
       description: "Waiting for recruiter response",
 
       count: pending,
+    },
+    {
+      title: "Accepted",
+      icon: <UserRoundCheck />,
+      color: "text-green-600 ",
+      description: "Your application has been approved",
+
+      count: accepted,
     },
     {
       title: "Rejected",

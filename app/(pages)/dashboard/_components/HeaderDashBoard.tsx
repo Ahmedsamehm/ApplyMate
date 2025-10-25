@@ -9,8 +9,8 @@ import React from "react";
 
 const HeaderDashBoard = () => {
   const { user } = useJobApplicationsContext();
-  const pathname = usePathname(); 
-  const paths = pathname.split("/").filter(Boolean); 
+  const pathname = usePathname();
+  const paths = pathname.split("/").filter(Boolean);
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 ">
       <SidebarTrigger className="-ml-1" />

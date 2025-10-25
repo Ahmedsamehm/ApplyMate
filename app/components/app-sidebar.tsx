@@ -21,6 +21,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "@/public/Logo.png";
 import { getUser } from "../utils/userStorage";
+import { useJobApplicationsContext } from "../context/JobApplicationsProvider ";
 // This is sample data.
 const data = {
   items: [
@@ -45,7 +46,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
-
+  const { user } = useJobApplicationsContext();
   return (
     <Sidebar {...props}>
       <SidebarHeader className="flex flex-row items-center">
@@ -76,7 +77,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <h1>{getUser()}</h1>
+          <h1>{user}</h1>
         </div>
         <Link href="/" className="text-foreground hover:underline">
           <Button size="sm" variant="outline">
