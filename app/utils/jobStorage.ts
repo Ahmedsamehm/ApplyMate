@@ -1,10 +1,15 @@
 export const GetJobs = () => {
-  const data = localStorage.getItem("jobApplications");
+  if (typeof window === "undefined") {
+    return { applied: [], pending: [], accepted: [], rejected: [] };
+  }
 
+  const data = localStorage.getItem("jobApplications");
   return data ? JSON.parse(data) : { applied: [], pending: [], accepted: [], rejected: [] };
 };
 
 export const UpdateJobStatus = (id: string, newStatus: string) => {
+  if (typeof window === "undefined") return;
+
   const data = GetJobs();
 
   let jobToMove = null;
@@ -26,6 +31,8 @@ export const UpdateJobStatus = (id: string, newStatus: string) => {
 };
 
 export const DeleteJob = (id: string) => {
+  if (typeof window === "undefined") return;
+
   const data = GetJobs();
 
   for (const status in data) {
