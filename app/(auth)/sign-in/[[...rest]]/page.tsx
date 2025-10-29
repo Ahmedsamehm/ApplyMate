@@ -1,4 +1,4 @@
-import { LoginForm } from "@/app/components/login-form";
+import { SignIn } from "@clerk/nextjs";
 
 import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
@@ -16,7 +16,8 @@ export default function page() {
             <ArrowLeft /> Back to home
           </h1>
         </Link>
-        <LoginForm />
+
+        <SignIn path="/sign-in" routing="path" />
       </div>
     </div>
   );

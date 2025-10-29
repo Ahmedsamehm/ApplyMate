@@ -2,15 +2,19 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/app/components/ui/breadcrumb";
 import { Separator } from "@/app/components/ui/separator";
 import { SidebarTrigger } from "@/app/components/ui/sidebar";
-import { useJobApplicationsContext } from "@/app/context/JobApplicationsProvider ";
+import { Spinner } from "@/app/components/ui/spinner";
+
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 const HeaderDashBoard = () => {
-  const { user } = useJobApplicationsContext();
+  const { user, isLoaded, isSignedIn } = useUser();
+
   const pathname = usePathname();
   const paths = pathname.split("/").filter(Boolean);
+
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 ">
       <SidebarTrigger className="-ml-1" />
@@ -38,7 +42,7 @@ const HeaderDashBoard = () => {
             );
           })}
         </BreadcrumbList>
-        <h1>Hello {user}</h1>
+        {!isLoaded ? <Spinner /> : <h1>Hello {user?.fullName}</h1>}
       </Breadcrumb>
     </header>
   );

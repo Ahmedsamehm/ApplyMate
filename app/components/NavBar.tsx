@@ -4,19 +4,23 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "./ui/button";
 import logo from "@/public/Logo.png";
+import { useAuth, useUser } from "@clerk/nextjs";
+import { Spinner } from "./ui/spinner";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, isLoaded, isSignedIn } = useUser();
+  const { signOut } = useAuth();
 
   const links = [
     { href: "#features", label: "Features" },
     { href: "#countries", label: "Opportunities" },
     { href: "#pricing", label: "Pricing" },
-    // { href: "#", label: "About" },
+    { href: "/dashboard", label: "dashboard", disabled: !isSignedIn },
   ];
 
   return (
@@ -33,7 +37,7 @@ const NavBar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-8 text-sm">
           {links.map((link) => (
-            <Link key={link.label} href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link key={link.label} href={link.href} className={`text-muted-foreground hover:text-foreground transition-colors capitalize "${link.disabled ? "hidden" : ""}`}>
               {link.label}
             </Link>
           ))}
@@ -41,15 +45,36 @@ const NavBar = () => {
 
         {/* Right Side Controls */}
         <div className="flex items-center gap-3 md:gap-4">
+          {/* Dark / Light Mode Toggle */}
           <ModeToggle />
-          <Link href="/login">
-            <Button className="bg-primary hover:bg-[color-mix(in oklch, var(--primary), black 10%)] text-primary-foreground border-0">Sign In</Button>
-          </Link>
+
+          {!isLoaded ? (
+            <Spinner />
+          ) : (
+            <div className="hidden md:flex items-center gap-3">
+              {isSignedIn ? (
+                <div className="flex items-center gap-2">
+                  <Image src={user.imageUrl} alt={user.firstName || "user"} width={32} height={32} className="object-contain rounded-full" />
+                  <span className="text-sm font-semibold text-foreground">{user.fullName}</span>
+
+                  <Button variant="ghost" className="cursor-pointer" onClick={() => signOut()}>
+                    <LogOut />
+                  </Button>
+                </div>
+              ) : (
+                <Link href="/sign-in">
+                  <Button>Sign In</Button>
+                </Link>
+              )}
+            </div>
+          )}
 
           {/* Mobile Menu Button */}
-          <Button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-foreground" aria-label="Toggle menu">
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
-          </Button>
+          <div className="flex md:hidden">
+            <Button onClick={() => setIsOpen(!isOpen)} className="text-foreground" aria-label="Toggle menu" variant="ghost">
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -61,6 +86,21 @@ const NavBar = () => {
               {link.label}
             </Link>
           ))}
+          {isSignedIn ? (
+            <div className="flex justify-between items-center gap-2">
+              <div className="flex items-center gap-2">
+                <Image src={user.imageUrl} alt={user.firstName || "user"} width={32} height={32} className="object-contain rounded-full" />
+                <span className="text-sm font-semibold text-foreground">{user.fullName}</span>
+              </div>
+              <Button variant="ghost" className="cursor-pointer" onClick={() => signOut()}>
+                <LogOut />
+              </Button>
+            </div>
+          ) : (
+            <Link href="/sign-in">
+              <Button className="w-full">Sign In</Button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>

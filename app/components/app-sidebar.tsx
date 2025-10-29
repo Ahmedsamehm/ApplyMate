@@ -1,18 +1,6 @@
 "use client";
 import * as React from "react";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-} from "@/app/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from "@/app/components/ui/sidebar";
 import Image from "next/image";
 import { Separator } from "./ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -20,8 +8,11 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "@/public/Logo.png";
-import { getUser } from "../utils/userStorage";
+
 import { useJobApplicationsContext } from "../context/JobApplicationsProvider ";
+import { useUser } from "@clerk/nextjs";
+import { Spinner } from "./ui/spinner";
+import { useAuth } from "@clerk/clerk-react";
 // This is sample data.
 const data = {
   items: [
@@ -45,8 +36,10 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user, isLoaded } = useUser();
+  const { signOut, isLoaded: isAuthLoaded } = useAuth();
   const pathname = usePathname();
-  const { user } = useJobApplicationsContext();
+
   return (
     <Sidebar {...props}>
       <SidebarHeader className="flex flex-row items-center">
@@ -74,16 +67,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter className="flex flex-row  justify-between items-center">
         <div className="flex gap-2 items-center">
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={user?.imageUrl} alt={user?.firstName || "user"} />
+            <AvatarFallback>{user?.firstName?.charAt(0)}</AvatarFallback>
           </Avatar>
-          <h1>{user}</h1>
+          {!isLoaded ? <Spinner /> : <h1>{user?.fullName}</h1>}
         </div>
-        <Link href="/" className="text-foreground hover:underline">
-          <Button size="sm" variant="outline">
-            Logout
-          </Button>
-        </Link>
+
+        <Button disabled={!isLoaded || !isAuthLoaded} onClick={() => signOut()} size="sm" variant="outline" className="cursor-pointer">
+          Logout
+        </Button>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

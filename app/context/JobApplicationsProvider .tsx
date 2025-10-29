@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { JobApplicationsState } from "../types";
 import { GetJobs } from "../utils/jobStorage";
-import { getUser } from "../utils/userStorage";
 
 export interface JobApplicationsContextType {
   jobApplications: JobApplicationsState;
@@ -11,7 +10,6 @@ export interface JobApplicationsContextType {
   isSheetOpen: boolean;
   setIsSheetOpen: React.Dispatch<React.SetStateAction<boolean>>;
   refreshJobs: () => void;
-  user: string | null;
 }
 export const JobApplicationsContext = createContext<JobApplicationsContextType | null>(null);
 
@@ -25,13 +23,7 @@ const JobApplicationsProvider = ({ children }: { children: React.ReactNode }) =>
 
   const [jobApplications, setJobApplications] = useState<JobApplicationsState>(getInitialJobApplications);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [user, setUser] = useState<string | null>(null);
-  useEffect(() => {
-    const storedUser = getUser();
-    if (storedUser) {
-      setUser(storedUser);
-    }
-  }, []);
+
   // Retrieve stored job applications when the component mounts
   useEffect(() => {
     const storedJobs = GetJobs();
@@ -57,7 +49,6 @@ const JobApplicationsProvider = ({ children }: { children: React.ReactNode }) =>
     isSheetOpen,
     setIsSheetOpen,
     refreshJobs,
-    user,
   };
 
   return <JobApplicationsContext.Provider value={values}>{children}</JobApplicationsContext.Provider>;
