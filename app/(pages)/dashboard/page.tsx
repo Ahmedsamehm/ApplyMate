@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import JobStatusCard from "./_components/JobStatusCard";
 
 import ApplicationsList from "./_components/ApplicationsList";
-
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Dashboard | ApplyMate",
   description: "Access your ApplyMate dashboard to manage job applications, monitor progress, update your profile, and explore new opportunities in one place.",

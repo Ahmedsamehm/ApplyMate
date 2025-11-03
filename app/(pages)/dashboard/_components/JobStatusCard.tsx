@@ -4,6 +4,7 @@ import { Hourglass, UserRoundCheck, UserSearch, UserX } from "lucide-react";
 import React from "react";
 import useJobList from "../_hooks/useJobList";
 import { JobApplication } from "@/app/types";
+import { Spinner } from "@/app/components/ui/spinner";
 
 export type JobStatusCardTypes = {
   title: string;
@@ -13,7 +14,7 @@ export type JobStatusCardTypes = {
   count: number;
 };
 const JobStatusCard = () => {
-  const { data: jobApplications } = useJobList();
+  const { data: jobApplications, isPending } = useJobList();
 
   const applied = jobApplications.filter((job: JobApplication) => job.status === "applied").length;
   const pending = jobApplications.filter((job: JobApplication) => job.status === "pending").length;
@@ -50,6 +51,7 @@ const JobStatusCard = () => {
       count: rejected,
     },
   ];
+  if (isPending) return <Spinner />;
   return (
     <div className="grid w-full max-w-7xl mx-auto gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {jobStatusCards.map((card, index) => (
