@@ -7,11 +7,7 @@ export const metadata: Metadata = {
   description: "Add a new job to your ApplyMate dashboard",
 };
 const AddJob = () => {
-  return (
-    <div>
-      <AddJobForm />
-    </div>
-  );
+  return <AddJobForm />;
 };
 
 export default AddJob;

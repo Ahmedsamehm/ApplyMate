@@ -1,5 +1,7 @@
 import { Metadata } from "next";
-import React from "react";
+import { Suspense } from "react";
+import JobsList from "./_components/JobsList";
+import { Spinner } from "@/app/components/ui/spinner";
 
 export const metadata: Metadata = {
   title: "Jobs | Dashboard",
@@ -7,7 +9,11 @@ export const metadata: Metadata = {
 };
 
 const Jobs = () => {
-  return <div>Jobs</div>;
+  return (
+    <Suspense fallback={<Spinner className="flex justify-center items-center min-h-[80vh] mx-auto size-20" />}>
+      <JobsList />
+    </Suspense>
+  );
 };
 
 export default Jobs;

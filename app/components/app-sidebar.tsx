@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React, { useEffect } from "react";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from "@/app/components/ui/sidebar";
 import Image from "next/image";
 import { Separator } from "./ui/separator";
@@ -9,10 +9,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "@/public/Logo.png";
 
-import { useJobApplicationsContext } from "../context/JobApplicationsProvider ";
 import { useUser } from "@clerk/nextjs";
 import { Spinner } from "./ui/spinner";
 import { useAuth } from "@clerk/clerk-react";
+import axios from "axios";
 // This is sample data.
 const data = {
   items: [
@@ -20,10 +20,10 @@ const data = {
       title: "Dashboard",
       url: "/dashboard",
     },
-    // {
-    //   title: "Jobs",
-    //   url: "/dashboard/jobs",
-    // },
+    {
+      title: "Jobs",
+      url: "/dashboard/jobs",
+    },
     {
       title: "Add Job",
       url: "/dashboard/addjob",
@@ -36,10 +36,21 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded, isSignedIn } = useUser();
   const { signOut, isLoaded: isAuthLoaded } = useAuth();
   const pathname = usePathname();
 
+  useEffect(() => {
+    if (user) {
+      const userData = {
+        user_id: user.id,
+        name: user.fullName,
+        email: user.emailAddresses[0]?.emailAddress,
+      };
+
+      axios.post("/api/auth", userData, { withCredentials: true });
+    }
+  }, [isSignedIn]);
   return (
     <Sidebar {...props}>
       <SidebarHeader className="flex flex-row items-center">

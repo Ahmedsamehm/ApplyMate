@@ -7,13 +7,12 @@ import { Textarea } from "@/app/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/app/components/ui/form";
 import { JobFormData } from "@/app/types";
-import { useJobApplicationsContext } from "@/app/context/JobApplicationsProvider ";
-import { toast } from "sonner";
+
 import { v4 as uuidv4 } from "uuid";
-
+import { useSaveJobApplication } from "../../_hooks/useSaveJobApplication";
+import { Spinner } from "@/app/components/ui/spinner";
 const AddJobForm = () => {
-  const { setJobApplications } = useJobApplicationsContext();
-
+  const { saveApplication, isPending } = useSaveJobApplication();
   const form = useForm<JobFormData>({
     defaultValues: {
       companyName: "",
@@ -30,26 +29,21 @@ const AddJobForm = () => {
     formState: { errors },
   } = form;
 
-  const onSubmit = (data: JobFormData) => {
-    const uuid = uuidv4();
+  const onSubmit = async (data: JobFormData) => {
 
-    const newApplication = {
-      id: uuid,
-      status: data.status,
-      date: data.applicationDate,
-      position: data.jobTitle,
-      companyName: data.companyName,
-      notes: data.notes,
+
+    if (!data) return;
+    const jobData = {
+      job_id: uuidv4(),
+      employer_name: data.companyName,
+      job_title: data.jobTitle,
+      job_description: data.notes || null,
+
+      job_state: data.status,
     };
-    if (!newApplication) return;
-    setJobApplications((prev) => ({
-      ...prev,
-      [data.status.toLowerCase()]: [...prev[data.status.toLowerCase() as keyof typeof prev], newApplication],
-    }));
-    toast.success("Job application added successfully");
-    form.reset();
+    saveApplication(jobData);
+    // form.reset();
   };
-
   return (
     <div className="flex justify-center items-center min-h-screen  p-4">
       <Card className="w-full max-w-lg shadow-md">
@@ -142,8 +136,8 @@ const AddJobForm = () => {
                 )}
               />
 
-              <Button type="submit" className="w-full">
-                Submit Application
+              <Button disabled={isPending} type="submit" className="w-full">
+                {isPending ? <Spinner /> : "Submit Application"}
               </Button>
             </form>
           </Form>

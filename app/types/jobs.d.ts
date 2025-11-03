@@ -1,54 +1,3 @@
-export type JobStatus = "applied" | "accepted" | "pending" | "rejected" | "";
-
-export interface JobApplicationItem {
-  id: string;
-  status: JobStatus;
-  date: string;
-  position: string;
-  companyName: string;
-  notes: string;
-}
-
-export interface JobApplication {
-  id: number;
-  applied_at: string;
-  user_id: string;
-  job_id: string;
-  status: JobStatus;
-  jobs: Job;
-}
-
-export interface Job {
-  id: number;
-  job_id: string;
-  job_city: string;
-  job_state: string;
-  job_title: string;
-  job_country: string;
-  job_location: string;
-  employer_logo: string;
-  employer_name: string;
-  job_apply_link: string;
-  job_max_salary: number | null;
-  job_min_salary: number | null;
-  job_description: string;
-  employer_website: string;
-  job_employment_type: string;
-}
-
-export interface JobApplication {
-  id: number;
-  applied_at: string;
-  user_id: string;
-  job_id: string;
-  status: JobStatus;
-  jobs: Job;
-}
-
-export interface JobsApiResponse {
-  data: JobResponse[];
-}
-
 export interface PostalAddress {
   addressCountry: string;
   addressLocality: string | null;
@@ -115,17 +64,15 @@ export interface JobResponse {
   description_text: string;
 }
 
-export interface JobApplicationsState {
-  applied: JobApplicationItem[];
-  accepted: JobApplicationItem[];
-  pending: JobApplicationItem[];
-  rejected: JobApplicationItem[];
+export interface JobsApiResponse {
+  data: JobResponse[];
 }
 
-export interface JobFormData {
-  companyName: string;
-  jobTitle: string;
-  status: JobStatus;
-  applicationDate: string;
-  notes: string;
+export interface JobApplication {
+  id: number;
+  applied_at: string;
+  user_id: string;
+  job_id: string;
+  status: "applied" | "accepted" | "pending" | "rejected" | "";
+  jobs: Job;
 }

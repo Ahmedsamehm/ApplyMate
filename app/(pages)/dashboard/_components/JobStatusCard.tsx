@@ -1,8 +1,9 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
-import { useJobApplicationsContext } from "@/app/context/JobApplicationsProvider ";
 import { Hourglass, UserRoundCheck, UserSearch, UserX } from "lucide-react";
 import React from "react";
+import useJobList from "../_hooks/useJobList";
+import { JobApplication } from "@/app/types";
 
 export type JobStatusCardTypes = {
   title: string;
@@ -12,12 +13,12 @@ export type JobStatusCardTypes = {
   count: number;
 };
 const JobStatusCard = () => {
-  const { jobApplications } = useJobApplicationsContext();
+  const { data: jobApplications } = useJobList();
 
-  const applied = jobApplications.applied.length;
-  const pending = jobApplications.pending.length;
-  const accepted = jobApplications.accepted.length;
-  const rejected = jobApplications.rejected.length;
+  const applied = jobApplications.filter((job: JobApplication) => job.status === "applied").length;
+  const pending = jobApplications.filter((job: JobApplication) => job.status === "pending").length;
+  const accepted = jobApplications.filter((job: JobApplication) => job.status === "accepted").length;
+  const rejected = jobApplications.filter((job: JobApplication) => job.status === "rejected").length;
 
   const jobStatusCards: JobStatusCardTypes[] = [
     {
@@ -25,16 +26,13 @@ const JobStatusCard = () => {
       icon: <UserSearch />,
       color: "text-blue-600",
       description: "your number of job applications",
-
       count: applied,
     },
-
     {
       title: "Pending",
       icon: <Hourglass />,
       color: "text-yellow-600",
       description: "Waiting for recruiter response",
-
       count: pending,
     },
     {
@@ -42,7 +40,6 @@ const JobStatusCard = () => {
       icon: <UserRoundCheck />,
       color: "text-green-600 ",
       description: "Your application has been approved",
-
       count: accepted,
     },
     {
@@ -50,7 +47,6 @@ const JobStatusCard = () => {
       icon: <UserX />,
       color: "text-red-600",
       description: "Your application was not successful",
-
       count: rejected,
     },
   ];

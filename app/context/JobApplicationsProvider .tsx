@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { JobApplicationsState } from "../types";
-import { GetJobs } from "../utils/jobStorage";
+import { GetJobs } from "../../utils/jobStorage";
 
 export interface JobApplicationsContextType {
   jobApplications: JobApplicationsState;

@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 const HeaderDashBoard = () => {
-  const { user, isLoaded, isSignedIn } = useUser();
+  const { user, isLoaded } = useUser();
 
   const pathname = usePathname();
   const paths = pathname.split("/").filter(Boolean);

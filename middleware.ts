@@ -19,13 +19,5 @@ export default clerkMiddleware(async (auth, req) => {
 });
 
 export const config = {
-  matcher: ["/((?!_next|.*\\..*|api).*)"],
+  matcher: ["/((?!_next|.*\\..*).*)"],
 };
-
-// export function middleware(req: any) {
-//   const path = req.nextUrl.pathname;
-
-//   if (authRoutes.includes(path)) {
-//     return console.log("protected route");
-//   }
-// }

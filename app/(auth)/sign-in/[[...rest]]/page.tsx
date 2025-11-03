@@ -1,12 +1,13 @@
-import { SignIn } from "@clerk/nextjs";
-
-import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
+
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { SignIn } from "@clerk/nextjs";
 export const metadata: Metadata = {
   title: "Login",
   description: "Login to your account",
 };
+
 export default function page() {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">

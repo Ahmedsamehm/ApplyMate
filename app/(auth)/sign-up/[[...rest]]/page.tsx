@@ -1,13 +1,11 @@
-import { SignUp } from "@clerk/nextjs";
-import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
+
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { SignUp } from "@clerk/nextjs";
 export const metadata: Metadata = {
   title: "Signup",
   description: "signup new account",
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 export default function Page() {
   return (

@@ -4,7 +4,7 @@ export default function PagesLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <NavBar />
-      {children}
+      <main> {children}</main>
     </>
   );
 }
