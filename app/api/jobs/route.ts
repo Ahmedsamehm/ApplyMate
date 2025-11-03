@@ -1,3 +1,4 @@
+import { JobStatus } from "@/app/types";
 import { createClient } from "@/utils/supabase/server";
 import { auth } from "@clerk/nextjs/server";
 import axios from "axios";
@@ -32,6 +33,10 @@ export async function GET(request: Request) {
 }
 
 export async function POST(req: Request) {
+  const body = await req.json();
+  const validStatuses = ["applied", "accepted", "pending", "rejected", ""];
+  const status: JobStatus = validStatuses.includes(body.job_state) ? body.job_state : "applied";
+
   try {
     const supabase = await createClient();
     const { isAuthenticated, userId } = await auth();
@@ -39,9 +44,6 @@ export async function POST(req: Request) {
     if (!isAuthenticated || !userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
-    const body = await req.json();
-
 
     if (!body.job_id) {
       return NextResponse.json({ error: "Missing job_id" }, { status: 400 });
@@ -62,7 +64,7 @@ export async function POST(req: Request) {
         {
           user_id: userId,
           job_id: body.job_id,
-          status: body.job_state,
+          status: status,
         },
       ])
       .select("*");

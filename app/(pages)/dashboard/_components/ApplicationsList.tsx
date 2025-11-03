@@ -8,6 +8,7 @@ import SelectedJob from "./SelectedJob";
 import { Button } from "@/app/components/ui/button";
 import { JobApplication } from "@/app/types";
 import { Spinner } from "@/app/components/ui/spinner";
+import Image from "next/image";
 
 const ApplicationsList = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -15,7 +16,12 @@ const ApplicationsList = () => {
 
   const { data: jobList, isLoading, error, refetch, isPending } = useJobList();
 
-  if (isLoading || isPending) return <Spinner />;
+  console.log(jobList);
+  console.log(jobList?.filter((job) => (job as any).status.toLowerCase() === "applied"));
+  console.log(jobList?.filter((job) => (job as any).status.toLowerCase() === "pending"));
+  console.log(jobList?.filter((job) => (job as any).status.toLowerCase() === "accepted"));
+  console.log(jobList?.filter((job) => (job as any).status.toLowerCase() === "rejected"));
+
   if (error)
     return (
       <div>
@@ -28,22 +34,22 @@ const ApplicationsList = () => {
     {
       title: "applied",
       color: "text-blue-600",
-      data: jobList?.filter((job) => (job as any).status.toLowerCase() === "applied") || [],
+      data: jobList?.filter((job) => (job as any).status === "applied") || [],
     },
     {
       title: "pending",
       color: "text-yellow-600",
-      data: jobList?.filter((job) => (job as any).status.toLowerCase() === "pending") || [],
+      data: jobList?.filter((job) => (job as any).status === "pending") || [],
     },
     {
       title: "accepted",
       color: "text-green-600",
-      data: jobList?.filter((job) => (job as any).status.toLowerCase() === "accepted") || [],
+      data: jobList?.filter((job) => (job as any).status === "accepted") || [],
     },
     {
       title: "rejected",
       color: "text-red-600",
-      data: jobList?.filter((job) => (job as any).status.toLowerCase() === "rejected") || [],
+      data: jobList?.filter((job) => (job as any).status === "rejected") || [],
     },
   ];
 
@@ -78,9 +84,10 @@ const ApplicationsList = () => {
                     >
                       <div className="flex flex-col">
                         <div className="flex items-center gap-2">
-                          {employer_logo && <img src={employer_logo} alt={`${employer_name} logo`} className="w-6 h-6 rounded-full" />}
-                          <span>{employer_name}</span>
+                          {employer_logo && <Image src={employer_logo} alt={`${employer_name} logo`} width={24} height={24} className="w-6 h-6 rounded-full" />}
+                          <span className="text-sm font-medium">{employer_name}</span>
                         </div>
+
                         <span className="text-sm text-muted-foreground">{job_title}</span>
                         <span className="text-sm text-muted-foreground">{new Date(applied_at).toLocaleDateString()}</span>
                       </div>
