@@ -39,7 +39,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user, isLoaded, isSignedIn } = useUser();
   const { signOut, isLoaded: isAuthLoaded } = useAuth();
   const pathname = usePathname();
-
   useEffect(() => {
     if (user) {
       const userData = {
