@@ -113,7 +113,7 @@ const JobsList = () => {
         {hasSearched && !isPending && hasApiResults && (
           <>
             <div className="text-sm text-muted-foreground mb-2">
-              Found {data.data.length} results for "{submittedSearch}" in {submittedSearch}
+              Found {data.data.length} results for"{submittedSearch}" in {submittedSearch}
             </div>
             {data.data.map((job: any) => (
               <Card onClick={() => setSelectedJob(job)} key={job.job_id} className="p-4 cursor-pointer hover:border-primary/50 hover:bg-secondary/5 transition-colors">

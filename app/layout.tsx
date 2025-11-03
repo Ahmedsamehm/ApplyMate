@@ -5,6 +5,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "./components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { Analytics } from "@vercel/analytics/next";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
       <html lang="en" className="scroll-smooth" suppressHydrationWarning>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-semibold`}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <Analytics />
             <Toaster />
             {children}
           </ThemeProvider>
