@@ -129,4 +129,3 @@ This project solves a real problem faced by job seekers — managing and trackin
 It combines authentication, database management, API integration, and state management into a single practical solution.
 
 It was built as a final internship project, with the goal of demonstrating real-world development practices and combining every skill learned into a functional, production-ready web application.
-ذذ
