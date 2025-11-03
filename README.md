@@ -122,7 +122,7 @@ npm run dev
 ```
 ---
 
-🧭 Why This Project Matters
+### 🧭 Why This Project Matters
 
 This project solves a real problem faced by job seekers — managing and tracking multiple applications efficiently.
 
