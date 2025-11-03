@@ -52,7 +52,7 @@ This system helps users **stay organized**, **save time**, and **improve their j
 
 | Category | Technologies |
 |-----------|--------------|
-| Framework | **Next.js 14** |
+| Framework | **Next.js 15.5.6** |
 | Styling | **Tailwind CSS**, **ShadCN/UI** |
 | State Management | **React Context API** |
 | Data Fetching | **React Query** |
