@@ -4,10 +4,13 @@ import JobStatusCard from "./_components/JobStatusCard";
 import ApplicationsList from "./_components/ApplicationsList";
 import { Suspense } from "react";
 import { Spinner } from "@/app/components/ui/spinner";
+
 export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Dashboard | ApplyMate",
-  description: "Access your ApplyMate dashboard to manage job applications, monitor progress, update your profile, and explore new opportunities in one place.",
+  description:
+    "Access your ApplyMate dashboard to manage job applications, monitor progress, update your profile, and explore new opportunities in one place.",
 };
 
 const DashBoard = () => {

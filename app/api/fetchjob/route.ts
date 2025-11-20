@@ -33,7 +33,12 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: "ID and status are required" }, { status: 400 });
   }
 
-  const { data, error } = await supabase.from("user_jobs").update({ status }).eq("id", id).eq("user_id", userId).select();
+  const { data, error } = await supabase
+    .from("user_jobs")
+    .update({ status })
+    .eq("id", id)
+    .eq("user_id", userId)
+    .select();
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });
