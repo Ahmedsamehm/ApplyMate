@@ -30,8 +30,6 @@ const AddJobForm = () => {
   } = form;
 
   const onSubmit = async (data: JobFormData) => {
-
-
     if (!data) return;
     const jobData = {
       job_id: uuidv4(),

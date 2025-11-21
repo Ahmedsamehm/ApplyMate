@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import updateJobStatus from "./updateJobStatus";
+import updateJobStatus from "../services/updateJobStatus";
 import { toast } from "sonner";
 
 const useUpdateJobStatus = () => {

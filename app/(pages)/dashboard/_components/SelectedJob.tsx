@@ -15,14 +15,22 @@ import useUpdateJobStatus from "../_hooks/useUpdateJobStatus";
 import useDeleteJobApplication from "../_hooks/useDeleteJobApplication";
 import { Spinner } from "@/app/components/ui/spinner";
 
-const SelectedJob = ({ selectedJob, isSheetOpen, setIsSheetOpen }: { selectedJob: JobApplication; isSheetOpen: boolean; setIsSheetOpen: (isOpen: boolean) => void }) => {
+const SelectedJob = ({
+  selectedJob,
+  isSheetOpen,
+  setIsSheetOpen,
+}: {
+  selectedJob: JobApplication;
+  isSheetOpen: boolean;
+  setIsSheetOpen: (isOpen: boolean) => void;
+}) => {
   const form = useForm({
     defaultValues: { status: selectedJob.status },
   });
 
   const { mutate: updateMutation, isPending: isUpdating } = useUpdateJobStatus();
   const { mutate: deleteMutation, isPending: isDeleting, isSuccess } = useDeleteJobApplication();
-  // const { refreshJobs } = useJobApplicationsContext();
+
   useEffect(() => {
     form.reset({ status: selectedJob.status });
   }, [selectedJob, form]);
@@ -47,7 +55,13 @@ const SelectedJob = ({ selectedJob, isSheetOpen, setIsSheetOpen }: { selectedJob
       <SheetContent side="right" className="w-full sm:max-w-2xl p-0 bg-background">
         <SheetHeader className="p-6 border-b border-border">
           <div className="flex items-start gap-4">
-            <Image src={job.employer_logo || "/Logo.png"} alt={job.employer_name} width={64} height={64} className="w-16 h-16 rounded-lg object-cover shrink-0" />
+            <Image
+              src={job.employer_logo || "/Logo.png"}
+              alt={job.employer_name}
+              width={64}
+              height={64}
+              className="w-16 h-16 rounded-lg object-cover shrink-0"
+            />
             <div className="flex-1 min-w-0">
               <SheetTitle className="text-2xl mb-1">{job.job_title}</SheetTitle>
               <p className="text-lg font-semibold text-foreground">{job.employer_name}</p>
@@ -91,7 +105,9 @@ const SelectedJob = ({ selectedJob, isSheetOpen, setIsSheetOpen }: { selectedJob
                   <span className="text-xs font-medium">Salary</span>
                 </div>
                 <p className="text-sm font-semibold">
-                  {job.job_min_salary && job.job_max_salary ? `$${(job.job_min_salary / 1000).toFixed(0)}k - $${(job.job_max_salary / 1000).toFixed(0)}k` : "Not disclosed"}
+                  {job.job_min_salary && job.job_max_salary
+                    ? `$${(job.job_min_salary / 1000).toFixed(0)}k - $${(job.job_max_salary / 1000).toFixed(0)}k`
+                    : "Not disclosed"}
                 </p>
               </div>
             </div>
@@ -101,9 +117,16 @@ const SelectedJob = ({ selectedJob, isSheetOpen, setIsSheetOpen }: { selectedJob
               <div className="space-y-3">
                 <h3 className="font-semibold text-foreground">Full Job Description</h3>
                 <div className="bg-secondary/20 rounded-lg p-4">
-                  <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line line-clamp-6">{job.job_description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line line-clamp-6">
+                    {job.job_description}
+                  </p>
                   {job.job_apply_link && (
-                    <a href={job.job_apply_link} className="text-primary hover:underline text-sm font-medium inline-block mt-3" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={job.job_apply_link}
+                      className="text-primary hover:underline text-sm font-medium inline-block mt-3"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Apply Link →
                     </a>
                   )}

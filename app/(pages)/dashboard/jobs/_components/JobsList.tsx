@@ -49,7 +49,16 @@ const JobsList = () => {
             <Label htmlFor="search" className="block mb-1 text-sm font-medium">
               Job Title <span className="text-red-500">*</span>
             </Label>
-            <Input type="text" id="search" name="search" value={search} placeholder="Frontend Developer as example" onChange={handleSearch} className="w-full" required />
+            <Input
+              type="text"
+              id="search"
+              name="search"
+              value={search}
+              placeholder="Frontend Developer as example"
+              onChange={handleSearch}
+              className="w-full"
+              required
+            />
           </div>
           <div className="w-full lg:w-auto lg:self-end">
             <Button type="submit" className="w-full lg:w-auto" disabled={isPending || !search.trim()}>
@@ -74,10 +83,20 @@ const JobsList = () => {
           <>
             <h2 className="text-2xl font-semibold text-foreground">Latest 10 Jobs</h2>
             {jobsDemo.data.map((job: any) => (
-              <Card onClick={() => setSelectedJob(job)} key={job.job_id} className="p-4 cursor-pointer hover:border-primary/50 hover:bg-secondary/5 transition-colors">
+              <Card
+                onClick={() => setSelectedJob(job)}
+                key={job.job_id}
+                className="p-4 cursor-pointer hover:border-primary/50 hover:bg-secondary/5 transition-colors"
+              >
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <Image src={job.employer_logo || "/Logo.png"} alt={job.employer_name} width={50} height={50} className="size-16 rounded-lg object-cover" />
+                    <Image
+                      src={job.employer_logo || "/Logo.png"}
+                      alt={job.employer_name}
+                      width={50}
+                      height={50}
+                      className="size-16 rounded-lg object-cover"
+                    />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
@@ -86,7 +105,9 @@ const JobsList = () => {
                         <p className="text-sm text-muted-foreground">{job.job_title}</p>
                       </div>
                       <Badge variant="secondary" className="shrink-0">
-                        {job.job_min_salary && job.job_max_salary ? `$${(job.job_min_salary / 1000).toFixed(0)}k - $${(job.job_max_salary / 1000).toFixed(0)}k` : "N/A"}
+                        {job.job_min_salary && job.job_max_salary
+                          ? `$${(job.job_min_salary / 1000).toFixed(0)}k - $${(job.job_max_salary / 1000).toFixed(0)}k`
+                          : "N/A"}
                       </Badge>
                     </div>
                     <div className="flex flex-wrap items-center gap-4 mt-3 text-xs text-muted-foreground">
@@ -116,10 +137,20 @@ const JobsList = () => {
               Found {data.data.length} results for"{submittedSearch}" in {submittedSearch}
             </div>
             {data.data.map((job: any) => (
-              <Card onClick={() => setSelectedJob(job)} key={job.job_id} className="p-4 cursor-pointer hover:border-primary/50 hover:bg-secondary/5 transition-colors">
+              <Card
+                onClick={() => setSelectedJob(job)}
+                key={job.job_id}
+                className="p-4 cursor-pointer hover:border-primary/50 hover:bg-secondary/5 transition-colors"
+              >
                 <div className="flex gap-4">
                   <div className="shrink-0">
-                    <Image src={job.employer_logo || "/Logo.png"} alt={job.employer_name} width={50} height={50} className="size-16 rounded-lg object-cover" />
+                    <Image
+                      src={job.employer_logo || "/Logo.png"}
+                      alt={job.employer_name}
+                      width={50}
+                      height={50}
+                      className="size-16 rounded-lg object-cover"
+                    />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
@@ -128,7 +159,9 @@ const JobsList = () => {
                         <p className="text-sm text-muted-foreground">{job.job_title}</p>
                       </div>
                       <Badge variant="secondary" className="shrink-0">
-                        {job.job_min_salary && job.job_max_salary ? `$${(job.job_min_salary / 1000).toFixed(0)}k - $${(job.job_max_salary / 1000).toFixed(0)}k` : "N/A"}
+                        {job.job_min_salary && job.job_max_salary
+                          ? `$${(job.job_min_salary / 1000).toFixed(0)}k - $${(job.job_max_salary / 1000).toFixed(0)}k`
+                          : "N/A"}
                       </Badge>
                     </div>
                     <div className="flex flex-wrap items-center gap-4 mt-3 text-xs text-muted-foreground">

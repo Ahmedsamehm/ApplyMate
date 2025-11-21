@@ -7,21 +7,15 @@ import { useState } from "react";
 import SelectedJob from "./SelectedJob";
 import { Button } from "@/app/components/ui/button";
 import { JobApplication } from "@/app/types";
-import { Spinner } from "@/app/components/ui/spinner";
+
 import Image from "next/image";
+import { JobStatusCards } from "@/utils/FilterState";
 
 const ApplicationsList = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState<JobApplication | null>(null);
-
-  const { data: jobList, isLoading, error, refetch, isPending } = useJobList();
-
-  console.log(jobList);
-  console.log(jobList?.filter((job) => (job as any).status.toLowerCase() === "applied"));
-  console.log(jobList?.filter((job) => (job as any).status.toLowerCase() === "pending"));
-  console.log(jobList?.filter((job) => (job as any).status.toLowerCase() === "accepted"));
-  console.log(jobList?.filter((job) => (job as any).status.toLowerCase() === "rejected"));
-
+  const { data: jobApplications, error, refetch } = useJobList();
+  const applications = JobStatusCards({ jobApplications });
   if (error)
     return (
       <div>
@@ -29,37 +23,18 @@ const ApplicationsList = () => {
       </div>
     );
 
-  // Organize data by status (case-insensitive matching)
-  const applications = [
-    {
-      title: "applied",
-      color: "text-blue-600",
-      data: jobList?.filter((job) => (job as any).status === "applied") || [],
-    },
-    {
-      title: "pending",
-      color: "text-yellow-600",
-      data: jobList?.filter((job) => (job as any).status === "pending") || [],
-    },
-    {
-      title: "accepted",
-      color: "text-green-600",
-      data: jobList?.filter((job) => (job as any).status === "accepted") || [],
-    },
-    {
-      title: "rejected",
-      color: "text-red-600",
-      data: jobList?.filter((job) => (job as any).status === "rejected") || [],
-    },
-  ];
-
   return (
     <>
       <div className="grid w-full max-w-7xl mx-auto gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {applications.map((application) => (
-          <Card key={application.title} className="w-full hover:border-blue-400/80 transition outline-2 dark:outline-0 min-h-[50vh] overflow-auto">
+          <Card
+            key={application.title}
+            className="w-full hover:border-blue-400/80 transition outline-2 dark:outline-0 min-h-[50vh] overflow-auto"
+          >
             <CardHeader>
-              <CardTitle className={`${application.color} font-bold text-xl flex gap-2 capitalize`}>{application.title}</CardTitle>
+              <CardTitle className={`${application.color} font-bold text-xl flex gap-2 capitalize`}>
+                {application.title}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="flex flex-col max-h-[40vh] overflow-y-auto">
@@ -84,14 +59,27 @@ const ApplicationsList = () => {
                     >
                       <div className="flex flex-col">
                         <div className="flex items-center gap-2">
-                          {employer_logo && <Image src={employer_logo} alt={`${employer_name} logo`} width={24} height={24} className="w-6 h-6 rounded-full" />}
+                          {employer_logo && (
+                            <Image
+                              src={employer_logo}
+                              alt={`${employer_name} logo`}
+                              width={24}
+                              height={24}
+                              className="w-6 h-6 rounded-full"
+                            />
+                          )}
                           <span className="text-sm font-medium">{employer_name}</span>
                         </div>
 
                         <span className="text-sm text-muted-foreground">{job_title}</span>
-                        <span className="text-sm text-muted-foreground">{new Date(applied_at).toLocaleDateString()}</span>
+                        <span className="text-sm text-muted-foreground">
+                          {new Date(applied_at).toLocaleDateString()}
+                        </span>
                       </div>
-                      <Badge className={`${statusColor.text} ${statusColor.bg} px-2 py-1 rounded-md capitalize`} variant="outline">
+                      <Badge
+                        className={`${statusColor.text} ${statusColor.bg} px-2 py-1 rounded-md capitalize`}
+                        variant="outline"
+                      >
                         {status}
                       </Badge>
                     </li>
@@ -103,7 +91,9 @@ const ApplicationsList = () => {
         ))}
       </div>
 
-      {selectedJob && <SelectedJob selectedJob={selectedJob} isSheetOpen={isSheetOpen} setIsSheetOpen={setIsSheetOpen} />}
+      {selectedJob && (
+        <SelectedJob selectedJob={selectedJob} isSheetOpen={isSheetOpen} setIsSheetOpen={setIsSheetOpen} />
+      )}
     </>
   );
 };

@@ -5,7 +5,8 @@ import { Spinner } from "@/app/components/ui/spinner";
 
 export const metadata: Metadata = {
   title: "Jobs | Dashboard",
-  description: "Manage and explore job listings from your ApplyMate dashboard. Search, view details, and apply to positions directly within your account.",
+  description:
+    "Manage and explore job listings from your ApplyMate dashboard. Search, view details, and apply to positions directly within your account.",
 };
 
 const Jobs = () => {
